@@ -1,0 +1,108 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Tracker API Server",
+    "description": "API server that servers all related to rider's track.",
+    "termsOfService": "https://github.com/sanbercode-superbootcamp/ride-hailing-part-3",
+    "contact": {
+      "name": "Kang Abduh",
+      "url": "sanbercode.com",
+      "email": "abduh@sanbercode.com"
+    },
+    "licence": {
+      "name": "MIT",
+      "url": "sanbercode.com"
+    },
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "definitions": {
+    "MovementLogs": {
+      "title": "Movement Logs",
+      "description": "Movement logs of a rider, including coordinate and timestamps.",
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "string",
+          "format": "date"
+        },
+        "east": {
+          "type": "number",
+          "format": "float"
+        },
+        "west": {
+          "type": "number",
+          "format": "float"
+        },
+        "north": {
+          "type": "number",
+          "format": "float"
+        },
+        "south": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "General information about Ride Hailing",
+    "url": "https://github.com/sanbercode-superbootcamp/ride-hailing-part-3"
+  },
+  "paths": {
+    "/movement/{rider_id}": {
+      "parameters": [
+        {
+          "name": "rider_id",
+          "description": "Rider Unique ID",
+          "type": "number",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "description": "API to get movement logs of a rider.",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "responses": {
+          "200": {
+            "description": "Request success with return rider's movement logs.",
+            "schema": {
+              "title": "Movement logs.",
+              "description": "Rider's movement logs.",
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "logs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/MovementLogs"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error occured when parameters is not provided."
+          }
+        },
+        "decprecated": false
+      }
+    }
+  }
+}
